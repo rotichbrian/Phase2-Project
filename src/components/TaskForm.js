@@ -19,6 +19,24 @@ const TaskForm = ({addTask}) => {
           console.error('Error fetching tasks:', error);
         }
       };
+
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        const newTask = { title, description, dueDate, priority };
+        try {
+          await axios.post('http://localhost:5000/tasks', newTask);
+          fetchTasks();
+          setTitle('');
+          setDescription('');
+          setDueDate('');
+          setPriority('');
+        } catch (error) {
+          console.error('Error adding task:', error);
+        }
+      };
+
+
+      
   return (
     <div>TaskForm</div>
   )
