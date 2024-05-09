@@ -36,9 +36,21 @@ const TaskForm = ({addTask}) => {
       };
 
 
-      
+
   return (
-    <div>TaskForm</div>
+    <div>
+        <form onSubmit={handleSubmit}>
+      <div className='title2'style={{ marginBottom: '10px' }}>
+        <input
+        className='title'
+          type="text"
+          placeholder="Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+      </div>
+      </form>
+      </div>
   )
 }
 
