@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const TaskForm = ({addTask}) => {
     const [title, setTitle] = useState('');
@@ -7,7 +7,18 @@ const TaskForm = ({addTask}) => {
     const [priority, setPriority] = useState('');
     const [tasks, setTasks] = useState([]);
 
-    
+     useEffect(() => {
+        fetchTasks();
+     }, []);
+
+     const fetchTasks = async () => {
+        try {
+          const response = await axios.get('http://localhost:5000/tasks');
+          setTasks(response.data);
+        } catch (error) {
+          console.error('Error fetching tasks:', error);
+        }
+      };
   return (
     <div>TaskForm</div>
   )
