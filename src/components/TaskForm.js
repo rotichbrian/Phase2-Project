@@ -69,7 +69,22 @@ const TaskForm = ({addTask}) => {
           <option value="High">High</option>
         </select>
       </div>
+       
+      <div className='title2'style={{ marginBottom: '10px' }}>
+       <input
+        className='title'
+          type="date"
+          id="dueDate"
+          value={dueDate}
+          onChange={(e) => setDueDate(e.target.value)}
+        />
+      </div>
+      <div className='title2'>
+      <button className='button'type="submit">Add Task</button>
+      </div>
+
       </form>
+      <TaskList tasks={tasks}/>
       </div>
   )
 }
