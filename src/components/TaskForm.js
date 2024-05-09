@@ -49,6 +49,14 @@ const TaskForm = ({addTask}) => {
           onChange={(e) => setTitle(e.target.value)}
         />
       </div>
+      <div className='title2'style={{ marginBottom: '10px' }}>
+        <textarea
+          className='desc'
+          placeholder="Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+      </div>
       </form>
       </div>
   )
