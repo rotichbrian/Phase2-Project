@@ -57,6 +57,18 @@ const TaskForm = ({addTask}) => {
           onChange={(e) => setDescription(e.target.value)}
         />
       </div>
+      <div className='title2'>
+        <select
+        className='prio'
+          value={priority}
+          onChange={(e) => setPriority(e.target.value)}
+        >
+          <option value="">Priority</option>
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+        </select>
+      </div>
       </form>
       </div>
   )
