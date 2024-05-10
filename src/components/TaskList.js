@@ -33,8 +33,43 @@ function TaskList({tasks}) {
   }
 
   return (
-    <div>TaskList</div>
-  )
+    <div>
+        <h2>TaskList</h2>
+        <div>
+            <button onClick={() => handleSort('duedate')} className="me-2">Sort by Due Date {sortOrder === 'asc' ? '▲' : '▼'}</button>
+            <button onClick={() => handleSort('priority')} className="me-2">Sort by Priority {sortOrder === 'asc' ? '▲' : '▼'}</button>
+            <button onClick={() => handleFilter('completed')} className="me-2">Show Completed</button>
+            <button onClick={() => handleFilter('pending')} className="me-2">Show Pending</button>
+        </div>
+        <table>
+        <thead>
+          <tr className ='tr'>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Due Date</th>
+            <th>Priority</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredTasks.map((task) => (
+            <tr 
+            className='table2'
+            key={task.id}>
+              <td>{task.title}</td>
+              <td>{task.description}</td>
+              <td>{task.dueDate}</td>
+              <td>{task.priority}</td>
+              <td>
+                <Link to={`/tasks/${task.id}`} className="me-2">View</Link>
+                <Link to={`/taskeditor/${task.id}`} className="me-2">Edit</Link>   
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 }
 
-export default TaskList
+export default TaskList;
