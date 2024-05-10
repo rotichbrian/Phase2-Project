@@ -16,6 +16,21 @@ const TaskEditor = ({tasks}) => {
             .catch(error => console.error('Error fetching task:', error));
     }, [id]);
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const newTask = { title, description, dueDate, priority };
+        try {
+          await axios.put(`http://localhost:5000/tasks/${id}`, newTask);
+        //   fetchTasks();
+          setTitle('');
+          setDescription('');
+          setDueDate('');
+          setPriority('');
+        } catch (error) {
+          console.error('Error adding task:', error);
+        }
+      };
+
   return (
     <div>TaskEditor</div>
   )
