@@ -18,6 +18,19 @@ function TaskList({tasks}) {
     setFilterBy(criteria);
   };
 
+  let filteredTasks = [...tasks];
+
+  if (filterBy === 'completed') {
+    filteredTasks = tasks.filter(task => task.completed);
+  }else if (filterBy === 'pending') {
+    filteredTasks = tasks.filter(task => !task.completed);
+  }
+
+  if (sortBy === 'dueDate') {
+    filteredTasks.sort((a, b) => (sortOrder === 'asc' ? a.dueDate.localeCompare(b.dueDate) : b.dueDate.localeCompare(a.dueDate)));
+  } else if (sortBy === 'priority') {
+    filteredTasks.sort((a, b) => (sortOrder === 'asc' ? a.priority.localeCompare(b.priority) : b.priority.localeCompare(a.priority)));
+  }
 
   return (
     <div>TaskList</div>
