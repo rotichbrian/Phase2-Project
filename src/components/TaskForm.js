@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import TaskList from './TaskList';
 
-const TaskForm = ({addTask}) => {
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [dueDate, setDueDate] = useState('');
-    const [priority, setPriority] = useState('');
-    const [tasks, setTasks] = useState([]);
+const TaskForm = ({ addTask }) => {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [dueDate, setDueDate] = useState('');
+  const [priority, setPriority] = useState('');
+  const [tasks, setTasks] = useState([]);
 
-     useEffect(() => {
+
+  useEffect(() => {
         fetchTasks();
-     }, []);
-
-     const fetchTasks = async () => {
+      }, []);
+    
+      const fetchTasks = async () => {
         try {
           const response = await axios.get('http://localhost:5000/tasks');
           setTasks(response.data);
@@ -20,24 +23,23 @@ const TaskForm = ({addTask}) => {
         }
       };
 
-      const handleSubmit = async (e) => {
-        e.preventDefault();
-        const newTask = { title, description, dueDate, priority };
-        try {
-          await axios.post('http://localhost:5000/tasks', newTask);
-          fetchTasks();
-          setTitle('');
-          setDescription('');
-          setDueDate('');
-          setPriority('');
-        } catch (error) {
-          console.error('Error adding task:', error);
-        }
-      };
-
-
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newTask = { title, description, dueDate, priority };
+    try {
+      await axios.post('http://localhost:5000/tasks', newTask);
+      fetchTasks();
+      setTitle('');
+      setDescription('');
+      setDueDate('');
+      setPriority('');
+    } catch (error) {
+      console.error('Error adding task:', error);
+    }
+  };
 
   return (
+    
     <div>
         <form onSubmit={handleSubmit}>
       <div className='title2'style={{ marginBottom: '10px' }}>
@@ -69,10 +71,12 @@ const TaskForm = ({addTask}) => {
           <option value="High">High</option>
         </select>
       </div>
-       
+
       <div className='title2'style={{ marginBottom: '10px' }}>
-       <input
+        <label htmlFor="dueDate"></label>
+        <input
         className='title'
+        // placeholder='Due date'
           type="date"
           id="dueDate"
           value={dueDate}
@@ -82,11 +86,18 @@ const TaskForm = ({addTask}) => {
       <div className='title2'>
       <button className='button'type="submit">Add Task</button>
       </div>
+      
 
-      </form>
+    </form>
       <TaskList tasks={tasks}/>
-      </div>
-  )
-}
+    </div>
+  );
+};
 
 export default TaskForm;
+
+
+
+
+
+
