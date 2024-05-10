@@ -31,9 +31,66 @@ const TaskEditor = ({tasks}) => {
         }
       };
 
-  return (
-    <div>TaskEditor</div>
-  )
-}
-
-export default TaskEditor
+      return (
+        <div>
+            <form onSubmit={handleSubmit}>
+          <div className='title2'style={{ marginBottom: '10px' }}>
+            <input
+            className='title'
+              type="text"
+              placeholder="Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </div>
+          <div className='title2'style={{ marginBottom: '10px' }}>
+            <textarea
+              className='desc'
+              placeholder="Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </div>
+          <div className='title2'>
+            <select
+            className='prio'
+              value={priority}
+              onChange={(e) => setPriority(e.target.value)}
+            >
+              <option value="">Priority</option>
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+            </select>
+          </div>
+    
+          <div className='title2'style={{ marginBottom: '10px' }}>
+            <label htmlFor="dueDate"></label>
+            <input
+            className='title'
+            // placeholder='Due date'
+              type="date"
+              id="dueDate"
+              value={dueDate}
+              onChange={(e) => setDueDate(e.target.value)}
+            />
+          </div>
+          <div className='title2'>
+          <button className='button'type="submit">Add Task</button>
+          </div>
+          
+    
+        </form>
+        <div>
+                <h3>{edit.title}</h3>
+                <p>{edit.description}</p>
+                <p>Due Date: {edit.dueDate}</p>
+                <p>Priority: {edit.priority}</p>
+               
+            </div>
+          
+        </div>
+      )
+    }
+    
+    export default TaskEditor;
