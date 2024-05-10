@@ -1,0 +1,41 @@
+/* Table header */
+thead {
+    background-color: #f2f2f2;
+  }
+  
+  /* Table row styling */
+  .tr {
+    font-weight: bolder;
+    margin-bottom: 3%;
+  }
+  
+  /* Basic table styling */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  
+  /* Table cell styling */
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid black;
+    background-color: #ddd;
+  }
+  
+  /* Hover effect for table cells */
+  tbody tr td:hover {
+    background-color: #f9f9f9;
+  }
+  
+  /* Link styling */
+  a {
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
