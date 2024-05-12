@@ -1,99 +1,97 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import './TaskEditor.css'; // Import the CSS file
+import { Link } from 'react-router-dom';
 
-const TaskEditor = ({tasks}) => {
-
+const TaskEditor = () => {
     const { id } = useParams();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [dueDate, setDueDate] = useState('');
     const [priority, setPriority] = useState('');
+    const [edit, setEdit] = useState({});
 
-    const [edit, setEdit] = useState({})
-    useEffect(() => {
-        fetch(`http://localhost:5000/tasks/${id}`)
-            .then(res => res.json())
-            .then(data => setEdit(data))
-            .catch(error => console.error('Error fetching task:', error));
-    }, [id]);
+useEffect(() => {
+    axios.get(`http://localhost:5001/tasks/${id}`)
+        .then(response => {
+            setEdit(response.data);
+            setTitle(response.data.title);
+            setDescription(response.data.description);
+            setDueDate(response.data.dueDate);
+            setPriority(response.data.priority);
+        })
+        .catch(error => console.error('Error fetching task:', error));
+}, [id]);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const newTask = { title, description, dueDate, priority };
-        try {
-          await axios.put(`http://localhost:5000/tasks/${id}`, newTask);
-        //   fetchTasks();
-          setTitle('');
-          setDescription('');
-          setDueDate('');
-          setPriority('');
-        } catch (error) {
-          console.error('Error adding task:', error);
-        }
-      };
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    const updatedTask = {
+        title: title !== '' ? title : edit.title,
+        description: description !== '' ? description : edit.description,
+        dueDate: dueDate !== '' ? dueDate : edit.dueDate,
+        priority: priority !== '' ? priority : edit.priority
+    };
 
-      return (
-        <div>
-            <form onSubmit={handleSubmit}>
-          <div className='title2'style={{ marginBottom: '10px' }}>
-            <input
-            className='title'
-              type="text"
-              placeholder="Title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </div>
-          <div className='title2'style={{ marginBottom: '10px' }}>
-            <textarea
-              className='desc'
-              placeholder="Description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </div>
-          <div className='title2'>
-            <select
-            className='prio'
-              value={priority}
-              onChange={(e) => setPriority(e.target.value)}
-            >
-              <option value="">Priority</option>
-              <option value="Low">Low</option>
-              <option value="Medium">Medium</option>
-              <option value="High">High</option>
-            </select>
-          </div>
-    
-          <div className='title2'style={{ marginBottom: '10px' }}>
-            <label htmlFor="dueDate"></label>
-            <input
-            className='title'
-            // placeholder='Due date'
-              type="date"
-              id="dueDate"
-              value={dueDate}
-              onChange={(e) => setDueDate(e.target.value)}
-            />
-          </div>
-          <div className='title2'>
-          <button className='button'type="submit">Add Task</button>
-          </div>
-          
-    
-        </form>
-        <div>
-                <h3>{edit.title}</h3>
-                <p>{edit.description}</p>
-                <p>Due Date: {edit.dueDate}</p>
-                <p>Priority: {edit.priority}</p>
-               
-            </div>
-          
-        </div>
-      )
+    try {
+        await axios.put(`http://localhost:5001/tasks/${id}`, updatedTask);
+        setEdit(updatedTask);
+        console.log('Task updated successfully');
+    } catch (error) {
+        console.error('Error updating task:', error);
+        // Handle error
     }
-    
-    export default TaskEditor;
+};
+
+return (
+    <div className="task-editor-container">
+        <form onSubmit={handleSubmit}>
+            <div>
+                <input
+                    type="text"
+                    placeholder="Title"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                />
+            </div>
+            <div>
+                <textarea
+                    placeholder="Description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                />
+            </div>
+            <div>
+                <select
+                    value={priority}
+                    onChange={(e) => setPriority(e.target.value)}
+                >
+                    <option value="">Priority</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+            <div>
+                <input
+                    type="date"
+                    value={dueDate}
+                    onChange={(e) => setDueDate(e.target.value)}
+                />
+            </div>
+            <div>
+            <button type="submit">Update Task</button>
+            <Link to="/"><button>Back</button></Link>
+            </div>
+        </form>
+        <div className="task-info">
+            <h3>{edit.title}</h3>
+            <p>{edit.description}</p>
+            <p>Due Date: {edit.dueDate}</p>
+            <p>Priority: {edit.priority}</p>
+        </div>
+    </div>
+);
+};
+
+export default TaskEditor

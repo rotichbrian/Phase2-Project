@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import "./TaskList.css"
 import { useParams } from 'react-router-dom';
 
-function TaskList({tasks}) {
-    //   const [id] = useParams()  
+function TaskList({ tasks }) {
+//   const [id] = useParams()  
   const [sortBy, setSortBy] = useState([]);
   const [filterBy, setFilterBy] = useState([]);
   const [sortOrder, setSortOrder] = useState('asc');
 
-  
   const handleSort = (criteria) => {
     setSortBy(criteria);
     setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
@@ -19,11 +18,12 @@ function TaskList({tasks}) {
     setFilterBy(criteria);
   };
 
+
   let filteredTasks = [...tasks];
 
   if (filterBy === 'completed') {
     filteredTasks = tasks.filter(task => task.completed);
-  }else if (filterBy === 'pending') {
+  } else if (filterBy === 'pending') {
     filteredTasks = tasks.filter(task => !task.completed);
   }
 
@@ -35,14 +35,14 @@ function TaskList({tasks}) {
 
   return (
     <div>
-        <h2>TaskList</h2>
-        <div>
-            <button onClick={() => handleSort('duedate')} className="me-2">Sort by Due Date {sortOrder === 'asc' ? '▲' : '▼'}</button>
-            <button onClick={() => handleSort('priority')} className="me-2">Sort by Priority {sortOrder === 'asc' ? '▲' : '▼'}</button>
-            <button onClick={() => handleFilter('completed')} className="me-2">Show Completed</button>
-            <button onClick={() => handleFilter('pending')} className="me-2">Show Pending</button>
-        </div>
-        <table>
+      <h2 className='h2'>Task List</h2>
+      <div className="mb-3">
+        <button onClick={() => handleSort('dueDate')} className="me-2">Sort by Due Date {sortOrder === 'asc' ? '▲' : '▼'}</button>
+        <button onClick={() => handleSort('priority')} className="me-2">Sort by Priority {sortOrder === 'asc' ? '▲' : '▼'}</button>
+        <button onClick={() => handleFilter('completed')} className="me-2">Show Completed</button>
+        <button onClick={() => handleFilter('pending')} className="me-2">Show Pending</button>
+      </div>
+      <table>
         <thead>
           <tr className ='tr'>
             <th>Title</th>

@@ -7,14 +7,14 @@ const Task = () => {
     const [task, setTask] = useState({});
 
     useEffect(() => {
-        fetch(`http://localhost:5000/tasks/${id}`)
+        fetch(`http://localhost:5001/tasks/${id}`)
             .then(res => res.json())
             .then(data => setTask(data))
             .catch(error => console.error('Error fetching task:', error));
     }, [id]);
 
     const deleteTask = (taskId) => {
-        fetch(`http://localhost:5000/tasks/${taskId}`, {
+        fetch(`http://localhost:5001/tasks/${taskId}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"

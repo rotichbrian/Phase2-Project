@@ -16,7 +16,7 @@ const TaskForm = ({ addTask }) => {
     
       const fetchTasks = async () => {
         try {
-          const response = await axios.get('http://localhost:5000/tasks');
+          const response = await axios.get('http://localhost:5001/tasks');
           setTasks(response.data);
         } catch (error) {
           console.error('Error fetching tasks:', error);
@@ -27,7 +27,7 @@ const TaskForm = ({ addTask }) => {
     e.preventDefault();
     const newTask = { title, description, dueDate, priority };
     try {
-      await axios.post('http://localhost:5000/tasks', newTask);
+      await axios.post('http://localhost:5001/tasks', newTask);
       fetchTasks();
       setTitle('');
       setDescription('');
