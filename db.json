@@ -1,10 +1,10 @@
 {
   "tasks": [
     {
-      "title": "cdfvgbhn",
-      "description": "",
-      "dueDate": "",
-      "priority": "",
+      "title": "Shopping",
+      "description": "Buy clothes",
+      "dueDate": "2024-05-31",
+      "priority": "Medium",
       "id": "2"
     },
     {
@@ -48,11 +48,6 @@
       "description": "Address and fix bugs identified during QA testing.",
       "dueDate": "2024-05-23",
       "priority": "High"
-    },
-    {
-      "title": "tyu",
-      "description": "4444",
-      "id": "b11e"
     }
   ]
 }
